@@ -1,0 +1,51 @@
+<section class="login-area">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-4 col-4">
+            <div class="box-login">
+                <img src="../../assets/img/logo.jpg" class="img-responsive" alt="SimInteligência" title="SimInteligência" />
+
+                <div class="box-form">
+                    <form [formGroup]="userFormRegister">
+                        <div class="row">
+                            <div class="col-xxl-6">
+                                <span>Login</span>
+                                <input type="text" placeholder="Seu nome" formControlName="nome" name="nome">
+                            </div>
+                            <div class="col-xxl-6">
+                                <span>Email</span>
+                                <input type="text" placeholder="Seu email" formControlName="email" name="email">
+                            </div>
+                            <div class="col-xxl-6">
+                                <div class="box-senha">
+                                    <span>Senha</span>
+                                </div>
+                                <input type="password" placeholder="Sua senha" autocomplete="password" formControlName="password" name="password">
+                            </div>
+                            <div class="col-xxl-6">
+                                <div class="box-senha">
+                                    <span>Confirme sua senha</span>
+                                </div>
+                                <input type="password" placeholder="Sua senha" autocomplete="password" formControlName="password_confirmation" name="password_confirmation">
+                            </div>
+                            <div class="col-xxl-12">
+                                <button type="submit" class="btn-login" (click)="createUser()">Registrar</button>
+                            </div>
+                            <div class="col-xxl-12">
+                                <div class="no-account">
+                                    <span>Já tenho uma conta!</span>
+                                    <span class="recuperar-senha"><a href="/login">Entrar</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-8 col-xl-8 col-md-8 col-sm-8 col-8 no-padding">
+            <div class="box-image"></div>
+        </div>
+      </div>
+    </div>
+  </section> 
