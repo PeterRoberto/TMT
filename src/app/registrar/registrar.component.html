@@ -6,7 +6,7 @@
                 <img src="../../assets/img/logo.jpg" class="img-responsive" alt="SimInteligência" title="SimInteligência" />
 
                 <div class="box-form">
-                    <form [formGroup]="userFormRegister">
+                    <form [formGroup]="userFormRegister" (ngSubmit)="onSubmit()">
                         <div class="row">
                             <div class="col-xxl-6">
                                 <span>Login</span>
@@ -29,7 +29,7 @@
                                 <input type="password" placeholder="Sua senha" autocomplete="password" formControlName="password_confirmation" name="password_confirmation">
                             </div>
                             <div class="col-xxl-12">
-                                <button type="submit" class="btn-login" (click)="createUser()">Registrar</button>
+                                <button type="submit" class="btn-login" [disabled]="!userFormRegister.valid">Registrar</button>
                             </div>
                             <div class="col-xxl-12">
                                 <div class="no-account">

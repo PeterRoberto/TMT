@@ -12,19 +12,43 @@ import { User } from '../modules/login';
 })
 export class LoginComponent implements OnInit {
 
-  public usuario: User = new User();
+  // public usuario: User = new User();
 
-  constructor(private apiService: ApiService) { }
+  loginForm: FormGroup = this.fb.group({
+    'email': ['', [Validators.required, Validators.email]],
+    'password': ['', [Validators.required, Validators.minLength(6)]],
+  })
+
+  constructor(
+    private apiService: ApiService,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private router: Router
+    ) { }
  
   ngOnInit(): void {
-    this.usuario = new User();
+    // this.usuario = new User();
   }
 
   onSubmit() {
-
+    const credentials = this.loginForm.value;
+    this.apiService.login(credentials)
+      .subscribe(
+        (user) => {
+          console.log(user); 
+          this.snackBar.open(
+            'Logado com sucesso, seja bem vindo!' + user.nome + '!', 'OK', 
+            {duration: 2000});
+          this.router.navigateByUrl('/completar-cadastro');
+        },
+        (err) => {
+          console.log(err);
+          this.snackBar.open('Erro no login', 'OK', {duration: 2000});
+        }
+      )
   } 
 
-  public fazerLogin() :void{
-    this.apiService.fazerLogin(this.usuario);
-  }
+  // public fazerLogin() :void{
+  //   this.apiService.fazerLogin(this.usuario);
+  // }
 }

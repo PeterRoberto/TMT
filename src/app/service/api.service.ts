@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, throwError } from 'rxjs';
+import { retry, catchError, tap } from 'rxjs/operators';
+import { Register } from '../modules/register'; 
 import { User } from '../modules/login';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
  
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,11 @@ export class ApiService {
   urlPadrao = 'https://api.avaliacao.siminteligencia.com.br/api';
 
   private usuarioAutenticado: boolean = false;
+  private subjUser$: BehaviorSubject<User> = new BehaviorSubject(null);
+  private subjLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private http: HttpClient,
-    private router: Router
     ) { }
 
   // Http Options
@@ -27,23 +29,43 @@ export class ApiService {
     })
   }
 
-
-  // Ainda preciso deixar dinâmico
-  public fazerLogin(usuario: User) {
-    if(usuario.email === 'usuario@email.com' && usuario.password === '123456') {
-      this.usuarioAutenticado = true;
-      this.router.navigate(['/completar-cadastro']);
-    } else {
-      this.usuarioAutenticado = false;
-    }
+  register(user: Register): Observable<Register> { 
+    return this.http.post<Register>(`${this.urlPadrao}/registrar`, user); 
   }
+
+  login(credentials: {email: string, password: string}): Observable<Register> {
+    return this.http
+      .post<Register>(`${this.urlPadrao}/login`, credentials)
+      .pipe(
+        tap((u: Register) => {
+          // localStorage.setItem('token', u['token']);
+          localStorage.setItem('token', JSON.stringify(u['token']));
+          this.subjLoggedIn$.next(true);  
+          this.subjUser$.next(u);
+        })
+      ) 
+  }
+
+
+  isAuthenticated(): Observable<boolean> {
+    return this.subjLoggedIn$.asObservable();
+  }
+ 
+  getUser(): Observable<User> {
+    return this.subjUser$.asObservable();
+  }
+
+
 
   usuarioEstaAutenticado() {
     return this.usuarioAutenticado;
   }
 
-  public saveUser(user: any): Observable<User> {
-    return this.http.post<any>(`${this.urlPadrao}/registrar`, user, this.httpOptions);
+
+  logout() {
+    localStorage.removeItem('token');
+    this.subjLoggedIn$.next(false);
+    this.subjUser$.next(null);
   }
 
 }

@@ -6,11 +6,18 @@ import { CompletarCadastroComponent } from './completar-cadastro/completar-cadas
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 
+// const routes: Routes = [
+//   {path: '', pathMatch: 'full', redirectTo: 'registrar' },
+//   {path: 'login', component: LoginComponent},
+//   {path: 'registrar', canActivate: [AuthGuard], component: RegistrarComponent},
+//   {path: 'completar-cadastro', canActivate: [AuthGuard],component: CompletarCadastroComponent},
+// ];
+
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'registrar' },
   {path: 'login', component: LoginComponent},
-  {path: 'registrar', canActivate: [AuthGuard], component: RegistrarComponent},
-  {path: 'completar-cadastro', canActivate: [AuthGuard],component: CompletarCadastroComponent},
+  {path: 'registrar', component: RegistrarComponent},
+  {path: 'completar-cadastro',component: CompletarCadastroComponent},
 ];
 
 @NgModule({

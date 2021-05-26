@@ -20,12 +20,13 @@
                     <i class="fa fa-angle-down arrow" aria-hidden="true"></i>
                     <div class="box-name">
                         <span>GrupoTMT</span>
-                        <span class="name">Tiago Magalhães</span>
-                    </div> 
+                        <!-- <span class="name">{{(user$|async)?.email}}</span> -->
+                    </div>  
                 </div>
                 <div class="box-xp">
                     <span>75.7 XP</span>
                 </div>
+                <button (click)="logout()">Logout</button>
             </div>
         </div>
 
