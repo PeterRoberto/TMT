@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./registrar.component.less']
 })
 export class RegistrarComponent implements OnInit {
-  public modelUserLogin: User;
+  // public modelUserLogin: User;
  
   userFormRegister = this.fb.group({
     nome:  ['', [Validators.required]],
@@ -25,7 +25,7 @@ export class RegistrarComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router 
     ) { }
 
   ngOnInit(): void {
@@ -44,15 +44,6 @@ export class RegistrarComponent implements OnInit {
     return {matching: false};
   }
 
-  // public createUser() :void{
-  //   this.apiService.saveUser(this.userFormRegister.value).subscribe(result => {
-  //     console.log(result);
-  //     this.userFormRegister.reset();
-  //   },
-  //   error => {
-  //     console.error(error);
-  //   })
-  // }
 
   onSubmit() {
     console.log(this.userFormRegister.value);

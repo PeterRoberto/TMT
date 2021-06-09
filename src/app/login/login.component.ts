@@ -20,10 +20,11 @@ export class LoginComponent implements OnInit {
   })
 
   constructor(
-    private apiService: ApiService,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
-    private router: Router
+    private apiService: ApiService,
+    private router: Router,
+    private snackBar: MatSnackBar
+    
     ) { }
  
   ngOnInit(): void {
@@ -37,8 +38,8 @@ export class LoginComponent implements OnInit {
         (user) => {
           console.log(user); 
           this.snackBar.open(
-            'Logado com sucesso, seja bem vindo!' + user.nome + '!', 'OK', 
-            {duration: 2000});
+            'Logado com sucesso, seja bem vindo! ' + user.nome + '!', 'OK', 
+            {duration: 25000});
           this.router.navigateByUrl('/completar-cadastro');
         },
         (err) => {

@@ -11,7 +11,7 @@ import { AuthGuard } from './guards/auth.guard';
 //   {path: 'login', component: LoginComponent},
 //   {path: 'registrar', canActivate: [AuthGuard], component: RegistrarComponent},
 //   {path: 'completar-cadastro', canActivate: [AuthGuard],component: CompletarCadastroComponent},
-// ];
+// ]; 
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'registrar' },

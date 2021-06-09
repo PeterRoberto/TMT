@@ -20,11 +20,14 @@
                     <i class="fa fa-angle-down arrow" aria-hidden="true"></i>
                     <div class="box-name">
                         <span>GrupoTMT</span>
-                        <!-- <span class="name">{{(user$|async)?.email}}</span> -->
+                        <ng-container *ngIf="(authenticated$ | async) && (user$ |async)">
+                            <span class="name">{{(user$|async)?.email}}</span>    
+                        </ng-container>
+                        
                     </div>  
                 </div>
                 <div class="box-xp">
-                    <span>75.7 XP</span>
+                    <span>75.7 XP</span> 
                 </div>
                 <button (click)="logout()">Logout</button>
             </div>
@@ -40,7 +43,7 @@
                     <div class="box-itens">
                         <a href="#"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
                         <div class="user">
-                            <a href="#">
+                            <a href="#" (click)="listarUsuarios()">
                                 <img src="../../assets/img/not-user.jpg" class="img-responsive" alt="Profile" title="Profile" />
                             </a>
                         </div>
@@ -63,36 +66,36 @@
                                 Complete seus dados de acesso para liberar sua conta.
                             </p>
     
-                            <form action="" class="formulario">
+                            <form [formGroup]="completarCadastro" (ngSubmit)="onSubmit()" class="formulario">
                                 <div class="row">
                                     <div class="col-xxl-6 column-vertical">
                                         <span>Nome</span>
-                                        <input type="text" placeholder="Nome e sobrenome">
+                                        <input type="text" placeholder="Nome e sobrenome" formControlName="nomeSobreNome">
                                     </div>
                                     <div class="col-xxl-6 column-vertical">
                                         <span>Email</span>
-                                        <input type="text" placeholder="email@exemplo.com">
+                                        <input type="text" placeholder="email@exemplo.com" formControlName="email" autocomplete="email">
                                     </div>
                                     <div class="col-xxl-6 column-vertical">
                                         <span>Telefone</span>
-                                        <input type="text" placeholder="(xx) xxxxx-xxxx">
+                                        <input type="text" placeholder="(xx) xxxxx-xxxx" formControlName="telefone">
                                     </div>
                                     <div class="col-xxl-6 column-vertical">
                                         <span>Rua/Avenida</span>
-                                        <input type="text" placeholder="Digite sua Rua/Avenida">
+                                        <input type="text" placeholder="Digite sua Rua/Avenida" formControlName="ruaAvenida">
                                     </div>
                                     <div class="col-xxl-6 column-vertical">
                                         <span>CPF</span>
-                                        <input type="text" placeholder="Digite seu CPF">
+                                        <input type="text" placeholder="Digite seu CPF" formControlName="cpf">
                                     </div>
                                     <div class="col-xxl-6 column-vertical">
                                         <span>Cidade</span>
-                                        <input type="text" placeholder="Digite sua cidade">
+                                        <input type="text" placeholder="Digite sua cidade" formControlName="cidade">
                                     </div>
                                     <div class="col-xxl-12">
                                         <div class="box-buttons">
                                             <button type="submit" class="btn-login btn-clear">Limpar</button>
-                                            <button type="submit" class="btn-login" >Salvar</button>
+                                            <button type="submit" class="btn-login">Salvar</button>
                                         </div>
                                     </div>
                                 </div>

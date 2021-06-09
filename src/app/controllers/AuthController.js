@@ -21,15 +21,15 @@ module.exports = {
             }
         }
         catch(e) {
-            res.status(500).json({message: 'Erro ao salvar  usuário', error: e});
+            res.status(500).json({message: 'Erro ao salvar usuário', error: e});
         }
     },
-
+ 
     login: function(req, res) {
         const password = req.body.password; 
         const email = req.body.email;
         UserModel.findOne({email: email}).lean().exec(function(err, user) {
-            if(err) {
+            if(err) { 
                 return res.status(500).json({
                     message: 'Erro no servidor', error: err
                 })
@@ -48,7 +48,25 @@ module.exports = {
                 message: 'Email ou password errado'
             })
         })
+    },
+
+
+    checkToken: function(res, res, next) {
+        const token = req.get('Authorization');
+        if(!token) {
+            return res.status(401).json({message: 'Token não encontrado'});
+        }
+         jwt.verify(token, consts.keyJWT, 
+            (err, decoded) => {
+                if(err || !decoded) {
+                    return res.status(401).json({
+                        message: 'Token errado. Ocorreu um erro de atenticação'
+                    });
+                }
+                next();
+            })
     }
+
 }
 
 
