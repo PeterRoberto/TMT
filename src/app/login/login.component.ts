@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { User } from '../modules/login';
 
 @Component({
   selector: 'app-login',
@@ -28,8 +27,9 @@ export class LoginComponent implements OnInit {
     ) { }
  
   ngOnInit(): void {
-    // this.usuario = new User();
-  }
+
+  } 
+
 
   onSubmit() {
     const credentials = this.loginForm.value;
@@ -38,18 +38,17 @@ export class LoginComponent implements OnInit {
         (user) => {
           console.log(user); 
           this.snackBar.open(
-            'Logado com sucesso, seja bem vindo! ' + user.nome + '!', 'OK', 
-            {duration: 25000});
+            'Logado com sucesso, seja bem vindo ' + user.usuario.nome + '!', 'OK', 
+            {duration: 25000}); 
           this.router.navigateByUrl('/completar-cadastro');
+          // debugger;
         },
         (err) => {
           console.log(err);
           this.snackBar.open('Erro no login', 'OK', {duration: 2000});
         }
       )
-  } 
+  }  
 
-  // public fazerLogin() :void{
-  //   this.apiService.fazerLogin(this.usuario);
-  // }
+
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, from, Observable, throwError } from 'rxjs';
 import { retry, catchError, tap } from 'rxjs/operators';
-import { Register } from '../modules/register'; 
+import { Register } from '../modules/register.model'; 
 import { User } from '../modules/login';
 import { EditarUsuario } from '../modules/editarUsuario';
 // import { Router } from '@angular/router';
@@ -42,8 +42,8 @@ export class ApiService {
           localStorage.setItem('token', u['token']);
           // localStorage.setItem('token', JSON.stringify(u['token']));
           this.subjLoggedIn$.next(true);  
-          this.subjUser$.next(u);
-        })
+          this.subjUser$.next(u[0]);
+        }) 
       ) 
   }
 

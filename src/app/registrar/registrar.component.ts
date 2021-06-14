@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { User } from '../modules/login';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Register } from '../modules/register';
+import { Register } from '../modules/register.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
@@ -25,7 +25,7 @@ export class RegistrarComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private snackBar: MatSnackBar,
-    private router: Router 
+    private router: Router  
     ) { }
 
   ngOnInit(): void {
@@ -54,14 +54,14 @@ export class RegistrarComponent implements OnInit {
       .subscribe( 
         (u) => {
           this.snackBar.open(
-            'Usuário registrado com sucesso!',
+            'Usuário registrado com sucesso.',
             'Ok', {duration: 2000}
           );
           this.router.navigateByUrl('/login');
         },
         (err) => {
-          console.log(err);
-          this.snackBar.open(err.error.message,'Ok', {duration: 2000});
+          console.error(err);
+          this.snackBar.open(err.error.message,'Ok', {duration: 2000}); 
         }
       )
   }
